@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TechOilFront.Models;
 
@@ -12,6 +13,9 @@ namespace TechOilFront.Controllers
         {
             _logger = logger;
         }
+
+        //Agregar autorizacion por Token
+        //[Authorize]
 
         public IActionResult Index()
         {

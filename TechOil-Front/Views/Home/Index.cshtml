@@ -1,7 +1,9 @@
-﻿@{
+﻿@model TechOilFront.Models.LoginModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenidos a TechOil</h1>
+    <h1 class="display-4">Bienvenido @Html.DisplayFor(x => x.Nombre) a TechOil</h1>
+    @Html.EditorFor( x => x.Token);
 </div>
