@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace TechOilFront
 {
     public class Program
@@ -5,7 +7,19 @@ namespace TechOilFront
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var AllowSpecificOrigins = "";
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy
+                (
+                    name: AllowSpecificOrigins,
+                    policy =>
+                    {
+                        policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+            
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -13,6 +27,29 @@ namespace TechOilFront
             {
                 client.BaseAddress = new Uri(builder.Configuration["ServiceUrl:ApiUrl"]);
                 // client.DefaultRequestHeaders.Add("User-Agent", "Mi proyecto Razor");
+            });
+
+            builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
+            {
+                config.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.Redirect("https://localhost:7150");
+                    return Task.CompletedTask;
+                };
+            }); 
+            
+            
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                {
+                    policy.RequireRole("Administrador");
+                });
             });
 
             var app = builder.Build();
@@ -31,9 +68,12 @@ namespace TechOilFront
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCors();
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Login}/{action=Login}/{id?}");

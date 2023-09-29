@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TechOilFront.Controllers.Functionalities;
 
+[Authorize]
 public class UsuarioController : Controller
 {
-    // GET
     public IActionResult Index()
     {
         return View("~/Views/Functionalities/Usuario/Index.cshtml");

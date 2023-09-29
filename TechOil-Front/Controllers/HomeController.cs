@@ -15,7 +15,7 @@ namespace TechOilFront.Controllers
         }
 
         //Agregar autorizacion por Token
-        //[Authorize]
+        //
 
         public IActionResult Index()
         {
