@@ -7,18 +7,6 @@ namespace TechOilFront
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var AllowSpecificOrigins = "";
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy
-                (
-                    name: AllowSpecificOrigins,
-                    policy =>
-                    {
-                        policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-                    });
-            });
             
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -52,6 +40,8 @@ namespace TechOilFront
                 });
             });
 
+            builder.Services.AddSession(); //Todo: Para que es esto?
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -71,8 +61,9 @@ namespace TechOilFront
             
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
-            app.UseCors();
+            
             
             app.MapControllerRoute(
                 name: "default",

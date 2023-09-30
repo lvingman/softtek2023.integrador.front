@@ -39,13 +39,15 @@ namespace TechOilFront.Controllers
 				ClaimTypes.Name,
 				ClaimTypes.Role
 			);
-			Claim claimNombre = new(ClaimTypes.Name, resultadoObjeto.Nombre);
-			Claim claimRol = new(ClaimTypes.Role, "Administrador");
-			Claim claimEmail = new(ClaimTypes.Email, resultadoObjeto.Email);
-			
-			identity.AddClaim(claimNombre);
+			Claim claimRol = new(ClaimTypes.Role, "Administrador"); //Todo: Encontrar una manera para leer el administrador desde el JSON de respuesta de la API
 			identity.AddClaim(claimRol);
+			
+			Claim claimNombre = new(ClaimTypes.Name, resultadoObjeto.Nombre);
+			identity.AddClaim(claimNombre);
+			
+			Claim claimEmail = new(ClaimTypes.Email, resultadoObjeto.Email); //Todo: No se si estos dos hacen falta, verificar
 			identity.AddClaim(claimEmail);
+			
 
 			var claimPrincipal = new ClaimsPrincipal(identity);
 			
