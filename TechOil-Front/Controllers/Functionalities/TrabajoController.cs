@@ -7,6 +7,6 @@ public class TrabajoController : Controller
     // GET
     public IActionResult Index()
     {
-        return View("~/Views/Functionalities/Trabajo/Index.cshtml");
+        return View("~/Views/Functionalities/Trabajo/Trabajo.cshtml");
     }
 }

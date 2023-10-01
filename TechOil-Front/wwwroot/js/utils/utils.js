@@ -2,7 +2,7 @@ function setCookie(nombre, valor, dias){
     var expiracion = "";
     if (dias){
         var fecha = new Date();
-        fecha.setTime(fecha.getTime() + (dias * 24 * 60 * 1000))
+        fecha.setTime(fecha.getTime() + (dias * 24 * 60 * 60 * 1000));
         expiracion = "; expires=" + fecha.toUTCString();
     }
     
@@ -10,7 +10,7 @@ function setCookie(nombre, valor, dias){
 }
 
 function getCookie(nombre){
-    var nombre = nombre + "=";
+    var nombre = nombre + "="; 
     var cookies = document.cookie.split(";");
    
     for (var i = 0; i < cookies.length; i++){

@@ -60,12 +60,14 @@ namespace TechOilFront.Controllers
 					ExpiresUtc = DateTime.Now.AddHours(1),
 				}
 			);
+			
+			HttpContext.Session.SetString("Token", resultadoObjeto.Token);
 
 			var homeViewModel = new HomeViewModel();
 			homeViewModel.Token = resultadoObjeto.Token;
 			
 			//return RedirectToAction("Index", "Home");
-			return View("~/Views/Home/Index.cshtml", resultadoObjeto);
+			return View("~/Views/Home/Home.cshtml", resultadoObjeto);
         }
 
         public async Task<IActionResult> CerrarSesion()

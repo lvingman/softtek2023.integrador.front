@@ -19,7 +19,7 @@ public class UsuarioController : Controller
     
     public IActionResult Index()
     {
-        return View("~/Views/Functionalities/Usuario/Index.cshtml");
+        return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
     }
 
     public async Task<IActionResult> UsuariosAddPartial([FromBody] UsuarioDto usuario)
@@ -38,10 +38,7 @@ public class UsuarioController : Controller
         var token = HttpContext.Session.GetString("Token");
         var baseApi = new BaseApi(_httpClient); //Todo: Que hace esto?
         var usuarios = baseApi.PostToApi("Usuario", usuario, token);
-        return View("~/Views/Functionalities/Usuario/Index.cshtml");
-        
+        return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
     }
-    
-    
     
 }

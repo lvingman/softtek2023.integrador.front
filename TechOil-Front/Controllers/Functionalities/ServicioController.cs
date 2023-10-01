@@ -7,6 +7,6 @@ public class ServicioController : Controller
     // GET
     public IActionResult Index()
     {
-        return View("~/Views/Functionalities/Servicio/Index.cshtml");
+        return View("~/Views/Functionalities/Servicio/Servicio.cshtml");
     }
 }

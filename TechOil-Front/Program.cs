@@ -40,7 +40,7 @@ namespace TechOilFront
                 });
             });
 
-            builder.Services.AddSession(); //Todo: Para que es esto?
+            builder.Services.AddSession(); //Q: Para que es esto? R: Para recuperar el token y poder hacer requests hacia la API
             
             var app = builder.Build();
 

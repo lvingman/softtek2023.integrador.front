@@ -5,6 +5,7 @@ using TechOilFront.Models;
 
 namespace TechOilFront.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,7 +20,7 @@ namespace TechOilFront.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("~/Views/Home/Home.cshtml");
         }
     
     

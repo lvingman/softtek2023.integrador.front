@@ -7,6 +7,6 @@ public class ProyectoController : Controller
     // GET
     public IActionResult Index()
     {
-        return View("~/Views/Functionalities/Proyecto/Index.cshtml");
+        return View("~/Views/Functionalities/Proyecto/Proyecto.cshtml");
     }
 }
