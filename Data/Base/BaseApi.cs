@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Data.DTOs;
 
 namespace Data.Base
 {
@@ -27,24 +28,22 @@ namespace Data.Base
         {
             try
             {
-
+                //Se almacena url de la api en client
                 var client = _httpClient.CreateClient("useApi");
 
                 if (token != "")
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
                 }
-
+                
+                //Se appendea el nombre del controller al final, posiblemente mas cosas
                 var response = await client.PostAsJsonAsync(controllerName, model);
-
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     return Ok(content);
                 }
-
                 return Unauthorized();
-
             }
             catch (Exception ex)
             {
@@ -64,14 +63,14 @@ namespace Data.Base
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
                 }
 
-                var response = await client.PutAsJsonAsync(controllerName, model);
-
+                var functionality = controllerName + "/" + ((UsuarioDto)model).Id;
+                
+                var response = await client.PutAsJsonAsync(functionality, model);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     return Ok(content);
                 }
-
                 return Unauthorized();
             }
             catch (Exception ex)
@@ -80,6 +79,64 @@ namespace Data.Base
             }
 
         }
+        
+        public async Task<IActionResult> SoftDeleteToApi(string controllerName, int id, string token = "")
+        {
+            try
+            {
+                var client = _httpClient.CreateClient("useApi");
+
+                if (token != "")
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+                }
+                
+                var apiUrl = $"{controllerName}/sd/{id}";
+                
+                var response = await client.DeleteAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return Ok(content);
+                }
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+        }
+        
+        public async Task<IActionResult> HardDeleteToApi(string controllerName, int id, string token = "")
+        {
+            try
+            {
+                var client = _httpClient.CreateClient("useApi");
+
+                if (token != "")
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+                }
+                
+                var apiUrl = $"{controllerName}/hd/{id}";
+                
+                var response = await client.DeleteAsync(apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return Ok(content);
+                }
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+        }
+        
+        
         
     }
 }

@@ -3,7 +3,8 @@ using Data.DTOs;
 namespace TechOilFront.ViewModels;
 
 public class UsuarioViewModel
-{
+{ 
+    public int Id { get; set; }
     public string Nombre { get; set; }
     public int Dni { get; set; }
     public int IdRol { get; set; }
@@ -14,6 +15,7 @@ public class UsuarioViewModel
     public static implicit operator UsuarioViewModel(UsuarioDto usuario)
     {
         var usuariosViewModel = new UsuarioViewModel();
+        usuariosViewModel.Id = usuario.Id;
         usuariosViewModel.Nombre = usuario.Nombre;
         usuariosViewModel.Dni = usuario.Dni;
         usuariosViewModel.IdRol = usuario.IdRol;

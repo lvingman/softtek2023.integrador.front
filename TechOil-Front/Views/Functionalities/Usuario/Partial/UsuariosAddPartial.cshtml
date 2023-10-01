@@ -8,7 +8,16 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Alta y/o modificación de Usuarios.</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                    @if (Model.Id == 0)
+                    {
+                        <text> Alta de Usuario.</text>
+                    }
+                    else
+                    {
+                        <text> Modificacion del usuario numero @Model.Id.</text>
+                    }
+                </h5>
             </div>
             @using (Html.BeginForm("GuardarUsuario", "Usuario", FormMethod.Post))
             {
@@ -17,35 +26,42 @@
                     <div class="row">
                         <div class="col-md-6 mt-1 mb-3">
                             <label class="col-md-2 form-control-label">Nombre</label>
-                            @Html.EditorFor(x=> x.Nombre, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        
+                                @Html.EditorFor(x=> x.Nombre, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                          
                         </div>
                         
                         <div class="col-md-6 mt-1 mb-3">
                             <label class="col-md-2 form-control-label">Dni</label>
-                            @Html.EditorFor(x=> x.Dni, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                              
+                                    @Html.EditorFor(x=> x.Dni, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                              
+                     
                         </div>
                         
                     </div>
 
                     <div class="row">
-                        <!-- Todo: Poner DDL en Roles -->
+                        <!-- Todo: Poner DDL en Roles, Hacer comparativa para despues, por ahora dejemoslo ahi -->
                         <div class="col-md-6 mt-1 mb-3">
                             <label class="col-md-5 form-control-label">Rol</label>
                             @Html.EditorFor(x=> x.IdRol, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
                         </div>
                         
                          <div class="col-md-6 mt-1 mb-3">
-                            <label class="col-md-5 form-control-label">Email</label>
-                            @Html.EditorFor(x=> x.Email, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                             <label class="col-md-5 form-control-label">Email</label>
+                           
+                                 @Html.EditorFor(x=> x.Email, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        
                         </div>
 
                     </div>
                     <div class="row">
                         
-                        <!-- Todo: Poner puntitos en password -->
+                        
                         <div class="col-md-6 mt-1 mb-3">
                             <label class="col-md-5 form-control-label">Contraseña</label>
-                            @Html.EditorFor(x => x.Contrasena, new { htmlAttributes = new { @class = "col-md-8 form-control" } })
+                            @Html.EditorFor(x => x.Contrasena, new { htmlAttributes = new { @class = "col-md-8 form-control", type = "password" } })
                         </div>
 
                     </div>
@@ -53,7 +69,15 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
+                    @if (Model.Id == 0)
+                    {
+                        <button type="submit" class="btn btn-success" id="btnRegistrar" name="submitButton" value="Registrar">Guardar Registro</button>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success" id="btnModificar" name="submitButton" value="Modificar">Guardar Modificacion</button>
+                    }
                 </div>
             }
         </div>
