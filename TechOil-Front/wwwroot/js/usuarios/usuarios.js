@@ -33,7 +33,7 @@ function AgregarUsuario() {
         'dataType': "html",
         success: function (resultado) {
             $('#usuariosAddPartial').html(resultado);
-            $('#usuarioModal').modal('show');
+            $('#usuarioModal1').modal('show');
         }
 
     });
@@ -65,20 +65,38 @@ function EditarUsuario(data) {
         'dataType': "html",
         success: function (resultado) {
             $('#usuariosAddPartial').html(resultado);
-            $('#usuarioModal').modal('show');
+            $('#usuarioModal1').modal('show');
         }
 
     });
 }
 
 function EliminarUsuario(data) {
+    var id = data.id;
+    var nombre = data.nombre;
+    var dni = data.dni;
+    var idRol = data.idRol;
+    var contrasena = data.contrasena;
+    var email = data.email;
+
+    var usuarioViewModel = {
+        Id: id,
+        Nombre: nombre,
+        Dni: dni,
+        IdRol: idRol,
+        Contrasena: contrasena,
+        Email: email
+    };
+    
     $.ajax({
-        type: "GET",
-        url: "/Usuario/EliminarUsuario",
-        data: JSON.stringify(data),
+        type: "POST",
+        url: "/Usuario/UsuariosAddPartial",
+        data: JSON.stringify(usuarioViewModel),
+        contentType:'application/json',
         'dataType': "html",
         success: function (resultado) {
-
+            $('#usuariosAddPartial').html(resultado);
+            $('#usuarioModal2').modal('show');
         }
 
     });
