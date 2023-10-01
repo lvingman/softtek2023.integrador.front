@@ -91,9 +91,9 @@ namespace Data.Base
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
                 }
                 
-                var apiUrl = $"{controllerName}/sd/{id}";
+                var functionality = controllerName + "/sd/" + id;
                 
-                var response = await client.DeleteAsync(apiUrl);
+                var response = await client.DeleteAsync(functionality);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();

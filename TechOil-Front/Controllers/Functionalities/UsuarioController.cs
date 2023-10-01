@@ -33,6 +33,13 @@ public class UsuarioController : Controller
         return PartialView("~/Views/Functionalities/Usuario/Partial/UsuariosAddPartial.cshtml", usuariosViewModel);
     }
     
+    public IActionResult BajaLogicaUsuario(int id)
+    {
+        var token = HttpContext.Session.GetString("Token");
+        var baseApi = new BaseApi(_httpClient);
+        var usuarios = baseApi.SoftDeleteToApi("Usuario", id, token);
+        return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
+    }
     
     public IActionResult GuardarUsuario(UsuarioDto usuario)
     {
@@ -63,13 +70,7 @@ public class UsuarioController : Controller
         return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
     }
     
-    public IActionResult BajaLogicaUsuario(int id)
-    {
-        var token = HttpContext.Session.GetString("Token");
-        var baseApi = new BaseApi(_httpClient);
-        var usuarios = baseApi.SoftDeleteToApi("Usuario", id, token);
-        return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
-    }
+
 
     public IActionResult BajaFisicaUsuario(int id)
     {
