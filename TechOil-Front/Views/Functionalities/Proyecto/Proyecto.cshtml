@@ -1,0 +1,20 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Proyecto";
+    Layout = "_Layout";
+}
+
+<h2>Proyecto</h2>
+
+<button class="btn btn-primary m-3" onclick="AgregarProyecto()">
+    Agregar Proyecto
+</button>
+
+<table id="proyectos" class="table table-striped" style="width:100%">
+    
+</table>
+
+<div id="proyectosAddPartial"></div>
+
+<script src="~/js/functionalities/proyectos/proyectos.js"></script>

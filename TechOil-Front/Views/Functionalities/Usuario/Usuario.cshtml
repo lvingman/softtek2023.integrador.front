@@ -1,0 +1,19 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "_Layout";
+}
+
+<h2>Usuario</h2>
+<button class="btn btn-primary m-3" onclick="AgregarUsuario()">
+    Agregar Usuario
+</button>
+
+<table id="usuarios" class="table table-striped" style="width:100%">
+    
+</table>
+
+<div id="usuariosAddPartial"></div>
+
+<script src="~/js/functionalities/usuarios/usuarios.js"></script>

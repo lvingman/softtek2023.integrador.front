@@ -1,0 +1,114 @@
+@model TechOilFront.ViewModels.UsuarioViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="usuarioModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                    @if (Model.Id == 0)
+                    {
+                        <text> Alta de Usuario.</text>
+                    }
+                    else
+                    {
+                        <text> Modificacion del usuario numero @Model.Id.</text>
+                    }
+                </h5>
+            </div>
+            @using (Html.BeginForm("GuardarUsuario", "Usuario", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Nombre</label>
+                        
+                            @Html.EditorFor(x=> x.Nombre, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                          
+                        </div>
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Dni</label>
+                              
+                            @Html.EditorFor(x=> x.Dni, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                              
+                     
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <!-- Todo: Poner DDL en Roles, Hacer comparativa para despues, por ahora dejemoslo ahi -->
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-5 form-control-label">Rol</label>
+                            @Html.EditorFor(x=> x.IdRol, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        </div>
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-5 form-control-label">Email</label>
+                           
+                            @Html.EditorFor(x=> x.Email, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-5 form-control-label">Contraseña</label>
+                            @Html.EditorFor(x => x.Contrasena, new { htmlAttributes = new { @class = "col-md-8 form-control", type = "password" } })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    @if (Model.Id == 0)
+                    {
+                        <button type="submit" class="btn btn-success" id="btnRegistrar" name="submitButton" value="Registrar">Guardar Registro</button>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success" id="btnModificar" name="submitButton" value="Modificar">Guardar Modificacion</button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="usuarioModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+              
+                        <text> Eliminacion de Usuario.</text>
+          
+                </h5>
+            </div>
+            @using (Html.BeginForm("BajaLogicaUsuario", "Usuario", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <p>Esta seguro de querer borrar el usuario @Model.Nombre?</p>
+                    <input type="hidden" name="id" value="@Model.Id" /> 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              
+                    <button type="submit" class="btn btn-danger" id="btnEliminar" name="submitButton" value="Eliminar">Eliminar registro</button>
+                  
+                </div>
+            }
+        </div>
+    </div>
+</div>

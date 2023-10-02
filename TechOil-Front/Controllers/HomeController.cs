@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TechOilFront.Models;
 
 namespace TechOilFront.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,9 +15,12 @@ namespace TechOilFront.Controllers
             _logger = logger;
         }
 
+        //Agregar autorizacion por Token
+        //
+
         public IActionResult Index()
         {
-            return View();
+            return View("~/Views/Home/Home.cshtml");
         }
     
     
