@@ -1,0 +1,114 @@
+@model TechOilFront.ViewModels.TrabajoViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="trabajoModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                    @if (Model.Id == 0)
+                    {
+                        <text> Alta de trabajo.</text>
+                    }
+                    else
+                    {
+                        <text> Modificacion del trabajo numero @Model.Id.</text>
+                    }
+                </h5>
+            </div>
+            @using (Html.BeginForm("GuardarTrabajo", "Trabajo", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Fecha</label>
+                        
+                            @Html.EditorFor(x=> x.Fecha, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                          
+                        </div>
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Id del Proyecto</label>
+                              
+                            @Html.EditorFor(x=> x.IdProyecto, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                              
+                     
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                      
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-5 form-control-label">Id del Servicio</label>
+                            @Html.EditorFor(x=> x.IdServicio, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        </div>
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-5 form-control-label">Cantidad de Horas</label>
+                           
+                            @Html.EditorFor(x=> x.CantidadHoras, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-5 form-control-label">Valor de la Hora</label>
+                            @Html.EditorFor(x => x.ValorHora, new { htmlAttributes = new { @class = "col-md-8 form-control" } })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    @if (Model.Id == 0)
+                    {
+                        <button type="submit" class="btn btn-success" id="btnRegistrar" name="submitButton" value="Registrar">Guardar Registro</button>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success" id="btnModificar" name="submitButton" value="Modificar">Guardar Modificacion</button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="trabajoModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+              
+                        <text> Eliminacion de trabajo.</text>
+          
+                </h5>
+            </div>
+            @using (Html.BeginForm("BajaLogicaTrabajo", "trabajo", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <p>Esta seguro de querer borrar el trabajo @Model.Id?</p>
+                    <input type="hidden" name="id" value="@Model.Id" /> 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              
+                    <button type="submit" class="btn btn-danger" id="btnEliminar" name="submitButton" value="Eliminar">Eliminar registro</button>
+                  
+                </div>
+            }
+        </div>
+    </div>
+</div>

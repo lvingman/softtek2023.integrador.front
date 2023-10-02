@@ -52,7 +52,7 @@ namespace Data.Base
         }
 
         
-        public async Task<IActionResult> PutToApi(string controllerName, object model, string token = "")
+        public async Task<IActionResult> PutToApi(string controllerName, int id, object model, string token = "")
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Data.Base
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
                 }
 
-                var functionality = controllerName + "/" + ((UsuarioDto)model).Id;
+                var functionality = controllerName + "/" + id;
                 
                 var response = await client.PutAsJsonAsync(functionality, model);
                 if (response.IsSuccessStatusCode)

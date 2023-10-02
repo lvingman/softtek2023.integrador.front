@@ -54,24 +54,15 @@ public class UsuarioController : Controller
         else if (submitButton == "Modificar")
         {
         
-                var usuarios = baseApi.PutToApi("Usuario", usuario, token);
+                var usuarios = baseApi.PutToApi("Usuario", usuario.Id, usuario, token);
            
         
         }
         return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
     }
-
-    //no se porque hice esto 🥴🥴🥴🥴🥴🥴🥴🥴🥴🥴🥴🥴🥴 momento cruelty
-    public IActionResult ModificarUsuario(UsuarioDto usuario, int id)
-    {
-        var token = HttpContext.Session.GetString("Token");
-        var baseApi = new BaseApi(_httpClient);
-        var usuarios = baseApi.PutToApi("Usuario", usuario, token);
-        return View("~/Views/Functionalities/Usuario/Usuario.cshtml");
-    }
     
 
-
+    //No se va a usar
     public IActionResult BajaFisicaUsuario(int id)
     {
         var token = HttpContext.Session.GetString("Token");
