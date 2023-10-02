@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using Data.Base;
 using Data.DTOs;
@@ -39,7 +40,25 @@ namespace TechOilFront.Controllers
 				ClaimTypes.Name,
 				ClaimTypes.Role
 			);
-			Claim claimRol = new(ClaimTypes.Role, "Administrador"); //Todo: Encontrar una manera para leer el administrador desde el JSON de respuesta de la API
+			
+			
+			JwtSecurityTokenHandler hand = new JwtSecurityTokenHandler();
+       
+	        var tokenData = hand.ReadJwtToken(resultadoObjeto.Token);
+
+	        ClaimsIdentity claimsIdentity = new ClaimsIdentity();
+	        
+	        foreach (var claim in tokenData.Claims)
+	        {
+	            if (!claimsIdentity.HasClaim(claim.Type, claim.Value))
+	                claimsIdentity.AddClaim(claim);
+	        }
+
+	        var claimsExtra = new ClaimsIdentity(claimsIdentity);
+				
+		
+			
+			Claim claimRol = new(ClaimTypes.Role, claimsExtra.Claims.ElementAt(3).Value); //Todo: Encontrar una manera para leer el administrador desde el JSON de respuesta de la API
 			identity.AddClaim(claimRol);
 			
 			Claim claimNombre = new(ClaimTypes.Name, resultadoObjeto.Nombre);
