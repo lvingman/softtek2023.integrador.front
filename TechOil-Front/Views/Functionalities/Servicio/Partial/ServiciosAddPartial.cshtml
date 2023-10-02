@@ -1,0 +1,90 @@
+@model TechOilFront.ViewModels.ServicioViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="servicioModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                    @if (Model.Id == 0)
+                    {
+                        <text> Alta de servicio.</text>
+                    }
+                    else
+                    {
+                        <text> Modificacion del servicio numero @Model.Id.</text>
+                    }
+                </h5>
+            </div>
+            @using (Html.BeginForm("GuardarServicio", "Servicio", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Descripcion</label>
+                        
+                            @Html.EditorFor(x=> x.Descripcion, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                          
+                        </div>
+                        
+                        <div class="col-md-6 mt-1 mb-3">
+                            <label class="col-md-2 form-control-label">Valor de la Hora</label>
+                              
+                            @Html.EditorFor(x=> x.ValorHora, new {htmlAttributes = new {@class = "col-md-8 form-control" } })
+                        </div>
+                        
+                    </div>
+
+                 
+                 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    @if (Model.Id == 0)
+                    {
+                        <button type="submit" class="btn btn-success" id="btnRegistrar" name="submitButton" value="Registrar">Guardar Registro</button>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success" id="btnModificar" name="submitButton" value="Modificar">Guardar Modificacion</button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="servicioModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+              
+                        <text> Eliminacion de servicio.</text>
+          
+                </h5>
+            </div>
+            @using (Html.BeginForm("BajaLogicaServicio", "servicio", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <p>Esta seguro de querer borrar el servicio @Model.Id?</p>
+                    <input type="hidden" name="id" value="@Model.Id" /> 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              
+                    <button type="submit" class="btn btn-danger" id="btnEliminar" name="submitButton" value="Eliminar">Eliminar registro</button>
+                  
+                </div>
+            }
+        </div>
+    </div>
+</div>
